@@ -18,10 +18,10 @@ type Config struct {
 var VarConfig Config
 
 func init() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic("Error loading .env file")
-	}
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	panic("Error loading .env file")
+	// }
 
 	VarConfig = Config{
 		DB_USERNAME: os.Getenv("DB_USER"),
