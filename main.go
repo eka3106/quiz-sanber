@@ -19,7 +19,7 @@ import (
 // @description This is a task quiz API Sanbercode
 // @description To access the API, you need to register and login first
 // @description To get image, you need image url and access it with /uploads/{image_url}
-// @host quiz-sanber-production.up.railway.app
+// @host localhost:3000
 // @BasePath /api
 // @securityDefinitions.apikey Bearer
 // @in header

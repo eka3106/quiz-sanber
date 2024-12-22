@@ -11,6 +11,11 @@ type ResponseUser struct {
 	Token string `json:"token"`
 }
 
+type RequestUser struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 // CreateUser is a function to create a user godoc
 // @Summary Create a user
 // @Description Create a user in database
@@ -18,8 +23,7 @@ type ResponseUser struct {
 // @Accept json
 // @Produce json
 // @Security None
-// @Param username body string true "Username"
-// @Param password body string true "Password"
+// @Param  Register body RequestUser true "Register"
 // @Success 201 {string} message: "success"
 // @Router /users/register [post]
 func CreateUser(c *gin.Context) {
@@ -50,8 +54,7 @@ func CreateUser(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security None
-// @Param username body string true "Username"
-// @Param password body string true "Password"
+// @Param  Login body RequestUser true "Login"
 // @Success 200 {string} token
 // @Router /users/login [post]
 func Login(c *gin.Context) {

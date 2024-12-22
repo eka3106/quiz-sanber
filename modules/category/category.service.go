@@ -23,6 +23,10 @@ type ResponseBooksByCategory struct {
 	Error error        `json:"error,omitempty"`
 }
 
+type RequestCategory struct {
+	Name string `json:"name"`
+}
+
 // GetAllCategories is a function to get all categories godoc
 // @Summary Get all categories
 // @Description Get all categories in database
@@ -47,7 +51,7 @@ func GetAllCategories(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security Bearer
-// @Param name body string true "Name"
+// @Param Request body RequestCategory true "Name"
 // @Success 201 {string} message: "success create category"
 // @Router /categories [post]
 func CreateCategory(c *gin.Context) {
@@ -87,7 +91,7 @@ func CreateCategory(c *gin.Context) {
 // @Produce json
 // @Security Bearer
 // @Param id path int true "ID"
-// @Param name body string true "Name"
+// @Param Request body RequestCategory true "Name"
 // @Success 200 {string} message: "success update category"
 // @Router /categories/{id} [put]
 func UpdateCategory(c *gin.Context) {

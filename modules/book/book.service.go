@@ -115,7 +115,7 @@ func CreateBook(c *gin.Context) {
 		if err != nil {
 			c.JSON(status, gin.H{"error": err.Error()})
 		} else {
-			c.JSON(status, gin.H{"message": "success update book"})
+			c.JSON(status, gin.H{"message": "success create book"})
 		}
 	} else {
 		c.JSON(400, gin.H{"error": "Must be MultipartForm"})
@@ -126,6 +126,7 @@ func CreateBook(c *gin.Context) {
 // UpdateBook is a function to update a book godoc
 // @Summary Update a book
 // @Description Update a book in database
+// @description If you want to update the image, you can use the foto_buku parameter. If you don't want to update the image, you can use the foto_buku_link parameter instead of the foto_buku parameter.
 // @Tags Books
 // @Accept multipart/form-data
 // @Produce json
@@ -139,7 +140,6 @@ func CreateBook(c *gin.Context) {
 // @Param created_by formData string true "Created By"
 // @Param modified_by formData string true "Modified By"
 // @Param category_id formData int true "Category ID"
-// @description If you want to update the image, you can use the foto_buku parameter. If you don't want to update the image, you can use the foto_buku_link parameter instead of the foto_buku parameter.
 // @Param foto_buku formData file false "Foto Buku"
 // @Param foto_buku_link formData string false "Foto Buku Link"
 // @Success 200 {string} message: "success update book"

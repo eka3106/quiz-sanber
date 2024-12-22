@@ -356,11 +356,11 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Name",
-                        "name": "name",
+                        "name": "Request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/category.RequestCategory"
                         }
                     }
                 ],
@@ -437,11 +437,11 @@ const docTemplate = `{
                     },
                     {
                         "description": "Name",
-                        "name": "name",
+                        "name": "Request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/category.RequestCategory"
                         }
                     }
                 ],
@@ -547,21 +547,12 @@ const docTemplate = `{
                 "summary": "Login",
                 "parameters": [
                     {
-                        "description": "Username",
-                        "name": "username",
+                        "description": "Login",
+                        "name": "Login",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "Password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/user.RequestUser"
                         }
                     }
                 ],
@@ -623,21 +614,12 @@ const docTemplate = `{
                 "summary": "Create a user",
                 "parameters": [
                     {
-                        "description": "Username",
-                        "name": "username",
+                        "description": "Register",
+                        "name": "Register",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "Password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/user.RequestUser"
                         }
                     }
                 ],
@@ -745,6 +727,14 @@ const docTemplate = `{
                 }
             }
         },
+        "category.RequestCategory": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "category.ResponseBooksByCategory": {
             "type": "object",
             "properties": {
@@ -777,6 +767,17 @@ const docTemplate = `{
                 },
                 "error": {}
             }
+        },
+        "user.RequestUser": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
         }
     },
     "securityDefinitions": {
@@ -791,7 +792,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "quiz-sanber-production.up.railway.app",
+	Host:             "localhost:3000",
 	BasePath:         "/api",
 	Schemes:          []string{},
 	Title:            "Quiz API Sanbercode",

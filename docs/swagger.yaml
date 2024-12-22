@@ -60,6 +60,11 @@ definitions:
       name:
         type: string
     type: object
+  category.RequestCategory:
+    properties:
+      name:
+        type: string
+    type: object
   category.ResponseBooksByCategory:
     properties:
       data:
@@ -82,7 +87,14 @@ definitions:
         $ref: '#/definitions/category.Category'
       error: {}
     type: object
-host: quiz-sanber-production.up.railway.app
+  user.RequestUser:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:3000
 info:
   contact: {}
   description: |-
@@ -312,10 +324,10 @@ paths:
       parameters:
       - description: Name
         in: body
-        name: name
+        name: Request
         required: true
         schema:
-          type: string
+          $ref: '#/definitions/category.RequestCategory'
       produces:
       - application/json
       responses:
@@ -385,10 +397,10 @@ paths:
         type: integer
       - description: Name
         in: body
-        name: name
+        name: Request
         required: true
         schema:
-          type: string
+          $ref: '#/definitions/category.RequestCategory'
       produces:
       - application/json
       responses:
@@ -430,18 +442,12 @@ paths:
       - application/json
       description: Login in database
       parameters:
-      - description: Username
+      - description: Login
         in: body
-        name: username
+        name: Login
         required: true
         schema:
-          type: string
-      - description: Password
-        in: body
-        name: password
-        required: true
-        schema:
-          type: string
+          $ref: '#/definitions/user.RequestUser'
       produces:
       - application/json
       responses:
@@ -477,18 +483,12 @@ paths:
       - application/json
       description: Create a user in database
       parameters:
-      - description: Username
+      - description: Register
         in: body
-        name: username
+        name: Register
         required: true
         schema:
-          type: string
-      - description: Password
-        in: body
-        name: password
-        required: true
-        schema:
-          type: string
+          $ref: '#/definitions/user.RequestUser'
       produces:
       - application/json
       responses:

@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "quiz-sanber-production.up.railway.app",
+    "host": "localhost:3000",
     "basePath": "/api",
     "paths": {
         "/books": {
@@ -350,11 +350,11 @@
                 "parameters": [
                     {
                         "description": "Name",
-                        "name": "name",
+                        "name": "Request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/category.RequestCategory"
                         }
                     }
                 ],
@@ -431,11 +431,11 @@
                     },
                     {
                         "description": "Name",
-                        "name": "name",
+                        "name": "Request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/category.RequestCategory"
                         }
                     }
                 ],
@@ -541,21 +541,12 @@
                 "summary": "Login",
                 "parameters": [
                     {
-                        "description": "Username",
-                        "name": "username",
+                        "description": "Login",
+                        "name": "Login",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "Password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/user.RequestUser"
                         }
                     }
                 ],
@@ -617,21 +608,12 @@
                 "summary": "Create a user",
                 "parameters": [
                     {
-                        "description": "Username",
-                        "name": "username",
+                        "description": "Register",
+                        "name": "Register",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "Password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/user.RequestUser"
                         }
                     }
                 ],
@@ -739,6 +721,14 @@
                 }
             }
         },
+        "category.RequestCategory": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "category.ResponseBooksByCategory": {
             "type": "object",
             "properties": {
@@ -770,6 +760,17 @@
                     "$ref": "#/definitions/category.Category"
                 },
                 "error": {}
+            }
+        },
+        "user.RequestUser": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
             }
         }
     },
