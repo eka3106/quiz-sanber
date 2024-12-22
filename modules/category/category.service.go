@@ -1,6 +1,7 @@
 package category
 
 import (
+	"quiz/modules/book"
 	"quiz/modules/user"
 	"strconv"
 	"time"
@@ -8,6 +9,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type ResponseCategories struct {
+	Data  []Category `json:"data"`
+	Error error      `json:"error,omitempty"`
+}
+type ResponseOneCategories struct {
+	Data  Category `json:"data"`
+	Error error    `json:"error,omitempty"`
+}
+
+type ResponseBooksByCategory struct {
+	Data  []book.Books `json:"data"`
+	Error error        `json:"error,omitempty"`
+}
+
+// GetAllCategories is a function to get all categories godoc
+// @Summary Get all categories
+// @Description Get all categories in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Security None
+// @Success 200 {object} ResponseCategories
+// @Router /categories [get]
 func GetAllCategories(c *gin.Context) {
 	result, status, err := GetAll()
 	if err != nil {
@@ -16,6 +40,16 @@ func GetAllCategories(c *gin.Context) {
 	c.JSON(status, gin.H{"data": result})
 }
 
+// CreateCategory is a function to create a category godoc
+// @Summary Create a category
+// @Description Create a category in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Param name body string true "Name"
+// @Success 201 {string} message: "success create category"
+// @Router /categories [post]
 func CreateCategory(c *gin.Context) {
 	if c.ContentType() == "multipart/form-data" {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})
@@ -45,6 +79,17 @@ func CreateCategory(c *gin.Context) {
 	}
 }
 
+// UpdateCategory is a function to update a category godoc
+// @Summary Update a category
+// @Description Update a category in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Param id path int true "ID"
+// @Param name body string true "Name"
+// @Success 200 {string} message: "success update category"
+// @Router /categories/{id} [put]
 func UpdateCategory(c *gin.Context) {
 	if c.ContentType() == "multipart/form-data" {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})
@@ -81,6 +126,16 @@ func UpdateCategory(c *gin.Context) {
 	}
 }
 
+// GetCategory is a function to get a category godoc
+// @Summary Get a category
+// @Description Get a category in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path int true "Category ID"
+// @Security None
+// @Success 200 {object} ResponseOneCategories
+// @Router /categories/{id} [get]
 func GetCategory(c *gin.Context) {
 	id := c.Param("id")
 	idInt, err := strconv.Atoi(id)
@@ -96,6 +151,16 @@ func GetCategory(c *gin.Context) {
 	c.JSON(status, gin.H{"data": result})
 }
 
+// DeleteCategory is a function to delete a category godoc
+// @Summary Delete a category
+// @Description Delete a category in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path int true "Category ID"
+// @Security Bearer
+// @Success 200 {string} message: "success delete category"
+// @Router /categories/{id} [delete]
 func DeleteCategory(c *gin.Context) {
 	id := c.Param("id")
 	_, isExist := c.Get("claims")
@@ -116,6 +181,16 @@ func DeleteCategory(c *gin.Context) {
 	}
 }
 
+// GetBooksByCategory is a function to get books by category godoc
+// @Summary Get books by category
+// @Description Get books by category in database
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path int true "Category ID"
+// @Security None
+// @Success 200 {object} ResponseBooksByCategory
+// @Router /categories/{id}/books [get]
 func GetBooksByCategory(c *gin.Context) {
 	if c.Request.MultipartForm != nil {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})

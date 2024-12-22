@@ -7,6 +7,21 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type ResponseUser struct {
+	Token string `json:"token"`
+}
+
+// CreateUser is a function to create a user godoc
+// @Summary Create a user
+// @Description Create a user in database
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Security None
+// @Param username body string true "Username"
+// @Param password body string true "Password"
+// @Success 201 {string} message: "success"
+// @Router /users/register [post]
 func CreateUser(c *gin.Context) {
 	if c.Request.MultipartForm != nil {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})
@@ -28,6 +43,17 @@ func CreateUser(c *gin.Context) {
 	}
 }
 
+// Login is a function to login godoc
+// @Summary Login
+// @Description Login in database
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Security None
+// @Param username body string true "Username"
+// @Param password body string true "Password"
+// @Success 200 {string} token
+// @Router /users/login [post]
 func Login(c *gin.Context) {
 	if c.Request.MultipartForm != nil {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})
@@ -46,6 +72,15 @@ func Login(c *gin.Context) {
 	}
 }
 
+// Logout is a function to logout godoc
+// @Summary Logout
+// @Description Logout in database
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Security Bearer
+// @Success 200 {string} message: "success"
+// @Router /users/logout [post]
 func Logout(c *gin.Context) {
 	if c.Request.MultipartForm != nil {
 		c.JSON(400, gin.H{"error": "multipart form is not allowed"})

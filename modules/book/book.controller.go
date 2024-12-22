@@ -7,6 +7,5 @@ func RouterBook(router *gin.Engine) {
 	api.GET("/books", GetAllBooks)
 	api.POST("/books", CreateBook)
 	api.GET("/books/:id", GetBook)
-	api.PUT("/books/:id", UpdateBook)
 	api.DELETE("/books/:id", DeleteBook)
 }

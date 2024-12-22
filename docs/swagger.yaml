@@ -1,0 +1,509 @@
+basePath: /api
+definitions:
+  book.Books:
+    properties:
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      created_by:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      image_url:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      price:
+        type: integer
+      release_year:
+        type: integer
+      thickness:
+        type: string
+      title:
+        type: string
+      total_page:
+        type: integer
+    type: object
+  book.ResponseBooks:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/book.Books'
+        type: array
+      error:
+        type: string
+    type: object
+  book.ResponseOneBooks:
+    properties:
+      data:
+        $ref: '#/definitions/book.Books'
+      error:
+        type: string
+    type: object
+  category.Category:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      name:
+        type: string
+    type: object
+  category.ResponseBooksByCategory:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/book.Books'
+        type: array
+      error: {}
+    type: object
+  category.ResponseCategories:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/category.Category'
+        type: array
+      error: {}
+    type: object
+  category.ResponseOneCategories:
+    properties:
+      data:
+        $ref: '#/definitions/category.Category'
+      error: {}
+    type: object
+host: quiz-sanber-production.up.railway.app
+info:
+  contact: {}
+  description: |-
+    This is a task quiz API Sanbercode
+    To access the API, you need to register and login first
+    To get image, you need image url and access it with /uploads/{image_url}
+  title: Quiz API Sanbercode
+  version: "1.0"
+paths:
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: Get all books in database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.ResponseBooks'
+      security:
+      - None: []
+      summary: Get all books
+      tags:
+      - Books
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a book in database
+      parameters:
+      - description: Release Year
+        in: formData
+        name: release_year
+        required: true
+        type: integer
+      - description: Total Page
+        in: formData
+        name: total_page
+        required: true
+        type: integer
+      - description: Price
+        in: formData
+        name: price
+        required: true
+        type: integer
+      - description: Title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Created By
+        in: formData
+        name: created_by
+        required: true
+        type: string
+      - description: Modified By
+        in: formData
+        name: modified_by
+        required: true
+        type: string
+      - description: Category ID
+        in: formData
+        name: category_id
+        required: true
+        type: integer
+      - description: Foto Buku
+        in: formData
+        name: foto_buku
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Create a book
+      tags:
+      - Books
+  /books/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a book in database
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Delete a book
+      tags:
+      - Books
+    get:
+      consumes:
+      - application/json
+      description: Get a book in database
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.ResponseOneBooks'
+      security:
+      - None: []
+      summary: Get a book
+      tags:
+      - Books
+    put:
+      consumes:
+      - multipart/form-data
+      description: |-
+        Update a book in database
+        If you want to update the image, you can use the foto_buku parameter. If you don't want to update the image, you can use the foto_buku_link parameter instead of the foto_buku parameter.
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Release Year
+        in: formData
+        name: release_year
+        required: true
+        type: integer
+      - description: Total Page
+        in: formData
+        name: total_page
+        required: true
+        type: integer
+      - description: Price
+        in: formData
+        name: price
+        required: true
+        type: integer
+      - description: Title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Created By
+        in: formData
+        name: created_by
+        required: true
+        type: string
+      - description: Modified By
+        in: formData
+        name: modified_by
+        required: true
+        type: string
+      - description: Category ID
+        in: formData
+        name: category_id
+        required: true
+        type: integer
+      - description: Foto Buku
+        in: formData
+        name: foto_buku
+        type: file
+      - description: Foto Buku Link
+        in: formData
+        name: foto_buku_link
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Update a book
+      tags:
+      - Books
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all categories in database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategories'
+      security:
+      - None: []
+      summary: Get all categories
+      tags:
+      - Categories
+    post:
+      consumes:
+      - application/json
+      description: Create a category in database
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Create a category
+      tags:
+      - Categories
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a category in database
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Delete a category
+      tags:
+      - Categories
+    get:
+      consumes:
+      - application/json
+      description: Get a category in database
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseOneCategories'
+      security:
+      - None: []
+      summary: Get a category
+      tags:
+      - Categories
+    put:
+      consumes:
+      - application/json
+      description: Update a category in database
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Update a category
+      tags:
+      - Categories
+  /categories/{id}/books:
+    get:
+      consumes:
+      - application/json
+      description: Get books by category in database
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseBooksByCategory'
+      security:
+      - None: []
+      summary: Get books by category
+      tags:
+      - Categories
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login in database
+      parameters:
+      - description: Username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - None: []
+      summary: Login
+      tags:
+      - Users
+  /users/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout in database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - Bearer: []
+      summary: Logout
+      tags:
+      - Users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a user in database
+      parameters:
+      - description: Username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      security:
+      - None: []
+      summary: Create a user
+      tags:
+      - Users
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
